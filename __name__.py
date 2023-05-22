@@ -27,9 +27,13 @@ def analyze():
 
         # Make request to OpenAI API
         response = requests.post(
-            'https://api.openai.com/v1/engines/chatgpt/completions',
+            'https://api.openai.com/v1/completions',
             headers={'Authorization': f'Bearer {API_KEY}'},
-            json={'prompt': code}  # Send code as JSON payload
+            json={
+                'prompt': code,
+                'max_tokens': 100,  # Adjust as needed
+                'temperature': 0.6  # Adjust as needed
+            }
         )
 
         if response.status_code == 200:
