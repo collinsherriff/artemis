@@ -4,6 +4,7 @@ This website allows a user to upload a .zip file containing code, extracts the c
 - Python 3
 - Flask
 - OpenAI API key
+- Heroku Hosting
 ## How it works
 1. The user uploads a .zip file containing code through an HTML form.
 2. The /analyze route handles the file upload. It uses the zipfile library to extract the .zip file into a temporary directory.
