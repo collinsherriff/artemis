@@ -32,5 +32,5 @@ def analyze():
     # Return response
     return response.json()['choices'][0]['text']
 
-if __name__ == '__main__': 
-    app.run(debug=True) 
+if __name__ == "__main__":
+    app.run(debug=True ,port=3000,use_reloader=False)

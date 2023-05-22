@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Artemis</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-
-<h1>Artemis</h1>
-
-<form method="POST" action="/analyze" enctype="multipart/form-data">
-    <input type="file" name="code_zip">
-    <button type="submit">Analyze Code</button>
-</form>
-
-<div id="response">
-</div>
-
-<script>
+  <div class="container">
+    <div class="header">
+      <img src="logo.png" alt="Artemis Logo">
+      <h1>Artemis</h1>
+    </div>
+    
+    <div class="form">
+      <form method="POST" action="http://localhost:5000/analyze" enctype="multipart/form-data">
+        <input type="file" name="code_zip">
+        <button type="submit">Analyze Code</button>
+      </form>
+    </div>
+    
+    <div id="response"></div>
+  </div>
+  
+  <script>
     const responseDiv = document.getElementById('response')
 
-    fetch('/analyze', { method: 'POST' })
-        .then(res => res.text())
-        .then(text => responseDiv.innerText = text)
-</script>
-
+    fetch('http://localhost:5000/analyze', { method: 'POST' })
+      .then(res => res.text())
+      .then(text => responseDiv.innerText = text)
+  </script>
 </body>
 </html> 
