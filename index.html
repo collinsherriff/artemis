@@ -3,6 +3,7 @@
 <head>
   <title>Artemis</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div class="container">
@@ -22,11 +23,27 @@
   </div>
   
   <script>
-    const responseDiv = document.getElementById('response')
+    const responseDiv = document.getElementById('response');
+    const form = document.querySelector('form');
 
-    fetch('https://artemis-sherr.herokuapp.com/analyze', { method: 'POST' })
-      .then(res => res.text())
-      .then(text => responseDiv.innerText = text)
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent form submission
+
+      const formData = new FormData(form);
+
+      fetch('https://artemis-sherr.herokuapp.com/analyze', {
+        method: 'POST',
+        body: formData
+      })
+        .then((res) => res.text())
+        .then((text) => {
+          responseDiv.innerText = text; // Display the API response
+        })
+        .catch((error) => {
+          console.log('Error:', error);
+          responseDiv.innerText = 'Error: An unexpected error occurred';
+        });
+    });
   </script>
 </body>
 </html>
