@@ -1,6 +1,5 @@
-Here is a README.md with an overview of the code:
 # Code Analysis Website
-This website allows a user to upload a .zip file containing code, extracts the code, sends it to the OpenAI ChatGPT API, and displays the response.
+This website allows a user to upload a .zip file containing code, extracts the code, sends it to the OpenAI ChatGPT API for analysis, and displays the response.
 ## Requirements
 - Python 3
 - Flask
