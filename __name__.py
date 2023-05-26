@@ -4,28 +4,33 @@ import zipfile
 import requests
 from flask import Flask, request
 
+# Load environment variables from .env file
 load_dotenv()
+
+# Get API key from environment variable
 API_KEY = os.environ.get('API_KEY')
 
+# Create Flask application
 app = Flask(__name__)
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
     try:
+        # Retrieve the uploaded ZIP file from the request
         zip_file = request.files['code_zip']
         print("Received ZIP file:", zip_file.filename)
 
-        # Extract the zip file
+        # Extract the contents of the ZIP file to a temporary directory
         with zipfile.ZipFile(zip_file, 'r') as zip_ref:
             zip_ref.extractall('tmp/')
 
-        # Get the full code string
+        # Combine the code from all extracted files into a single string
         code = ''
         for filename in os.listdir('tmp'):
             with open(os.path.join('tmp', filename), 'r') as f:
                 code += f.read()
 
-        # Make request to OpenAI API
+        # Make a request to the OpenAI API for code completion
         response = requests.post(
             'https://api.openai.com/v1/completions',
             headers={'Authorization': f'Bearer {API_KEY}'},
@@ -48,4 +53,5 @@ def analyze():
         return "Error: An unexpected error occurred"
 
 if __name__ == "__main__":
+    # Run the Flask application in debug mode on port 3000
     app.run(debug=True, port=3000, use_reloader=False)
